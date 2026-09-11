@@ -1,20 +1,69 @@
-* {
-    margin: 0;
-    padding: 0;
+/* ==========================================================================
+   1. VARIABLES & DESIGN TOKENS
+   ========================================================================== */
+:root {
+    /* Colors */
+    --color-bg: #ffffff;
+    --color-text: #000000;
+    --color-accent: #005c14;
+    --color-muted: #7f0000;
+
+    /* Aliases */
+    --primary-color: var(--color-bg);
+    --secondary-color: var(--color-text);
+
+    /* Typography */
+    --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-heading: 'Georgia', 'Times New Roman', serif;
+    --font-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
+    --font-family: 'Bahnschrift', sans-serif;
+
+    /* Font Sizes (Modular Scale) */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 2rem;
+    --text-4xl: 2.5rem;
+
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    --space-3xl: 4rem;
+
+    /* Fluid Typography & Spacing */
+    --fluid-title: clamp(2rem, 4vw + 1rem, 4.5rem);
+    --fluid-body: clamp(1rem, 0.5vw + 0.8rem, 1.25rem);
+    --section-padding: clamp(2rem, 5vh, 6rem);
+
+    /* Layout & Layers */
+    --max-content-width: 1200px;
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 16px;
+    --z-sidebar: 1000;
+
+    /* Shadows & Transitions */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
+    --transition-fast: 150ms ease;
+    --transition-base: 300ms ease;
 }
 
-:root {
-    --primary-color: #ffffff;
-    --secondary-color: #000000;
-    --font-family: 'Bahnschrift', sans-serif;
-    --z-index: 1000; /* for sidebar and logo above*/
-    /* Fluid sizing: Scales seamlessly between mobile and desktop viewport widths (vw) */
-    --fluid-title: clamp(2.5rem, 5vw + 1rem, 5.5rem); 
-    --fluid-body: clamp(1rem, 0.5vw + 0.8rem, 1.25rem);
-    --section-padding: clamp(4rem, 8vh, 10rem);
-  
-    /* Layout constraints */
-    --max-content-width: 1440px;
+/* ==========================================================================
+   2. RESET & BASE STYLES
+   ========================================================================== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -22,114 +71,21 @@ body {
     background-color: var(--primary-color);
     color: var(--secondary-color);
     font-family: var(--font-family);
+    line-height: 1.5;
+    overflow-x: hidden;
 }
 
-nav {
-    background-color: var(--secondary-color);
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
-nav ul {
-    width: 100%;
-    list-style: none;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
+/* ==========================================================================
+   3. BASE / MOBILE STYLES (< 768px)
+   ========================================================================== */
 
-nav li {
-    height: 50px; /*defines navbar height*/
-}
-
-nav a {
-    height: 100%;
-    padding: 0 30px;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: var(--primary-color);
-    font-size: 1.5em;
-}
-
-nav a:hover {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    transition: 0.6s;
-}
-
-nav li:first-child {
-    margin-right: auto;
-}
-
-.sidebar {
-    position: fixed;
-    top: 0;
-    right: -20px;
-    height: 100vh;
-    width: 300px;
-    z-index: var(--z-index);
-    background-color: var(--secondary-color);
-    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    font-size: 1.3em;
-    transform: translateX(100%);
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.sidebar li {
-    width: 100%;
-    padding-top: 40px;
-}
-
-.sidebar a {
-    width: 100%;
-}
-
-@media(max-width: 700px) {
-    .hideOnMobile {
-        display: none;
-    }
-}
-
-@media(min-width: 700px) {
-    .menu-button {
-        display: none;
-    }
-}
-
-@media(max-width: 450px) {
-    .sidebar {
-        width: 100%;
-    }
-}
-
-.full-width-video {
-  width: 100%;
-  object-fit: cover;
-  height: 90vh;
-  background-color: rgb(0, 0, 0); /* to show pre-allocated space */
-  object-position: center; 
-}
-/* override for desktop */
-@media only screen and (min-width: 480px) {
-  .full-width-video {
-    height: 90vh;
-  }
-}
-.width-display {
-  font-size: 50%;
-  position: absolute;
-  right: 1em;
-  display: block;
-  top: 1em;
-}
-
-/* Accessibility: visible skip link */
+/* Accessibility Skip Link */
 .skip-link {
     position: absolute;
     left: 0.75rem;
@@ -137,14 +93,218 @@ nav li:first-child {
     background: var(--secondary-color);
     color: var(--primary-color);
     padding: 0.5rem 0.75rem;
-    z-index: calc(var(--z-index) + 10);
+    z-index: calc(var(--z-sidebar) + 10);
     transform: translateY(-120%);
+    transition: transform var(--transition-fast);
 }
+
 .skip-link:focus {
     transform: translateY(0);
 }
 
-/* Animations */
+/* Header & Navigation */
+header {
+    position: relative;
+    width: 100%;
+}
+
+nav {
+    background-color: var(--secondary-color);
+    box-shadow: var(--shadow-sm);
+    width: 100%;
+}
+
+nav ul {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav li {
+    height: 60px;
+}
+
+nav a {
+    height: 100%;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: var(--text-lg);
+    transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+nav a:hover,
+nav a:focus {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+/* Mobile defaults for navigation items */
+.hideOnMobile {
+    display: none; /* Hidden on mobile by default */
+}
+
+.menu-button {
+    display: flex;
+}
+
+.width-display {
+    font-size: var(--text-xs);
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    color: var(--primary-color);
+    z-index: 10;
+}
+
+/* Sidebar Drawer */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100%;
+    max-width: 300px;
+    z-index: var(--z-sidebar);
+    background-color: var(--secondary-color);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(100%);
+}
+
+.sidebar li {
+    width: 100%;
+    height: auto;
+    padding-top: var(--space-md);
+}
+
+.sidebar a {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: var(--text-xl);
+}
+
+.sidebar a:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: -3px;
+}
+
+/* Hero Section */
+.full-width-video {
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+    object-position: center;
+    background-color: #000;
+}
+
+/* Infinite Marquee Banner */
+#container {
+    width: 100%;
+    height: 3.5rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+}
+
+.scroll {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    animation: marquee 25s linear infinite;
+    shrink: 0;
+}
+
+.fade {
+    width: 100%;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        #000 0%,
+        transparent 15%,
+        transparent 85%,
+        #000 100%
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+.item {
+    display: inline-flex;
+    align-items: center;
+    color: var(--primary-color);
+    font-size: var(--text-base);
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    border-radius: var(--border-radius-sm);
+    white-space: nowrap;
+    box-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.3);
+}
+
+/* About Section (Stacked on Mobile) */
+.about-section {
+    padding: var(--section-padding) 1.5rem;
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+}
+
+.main-heading {
+    font-size: var(--fluid-title);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xl);
+}
+
+.text-content {
+    width: 100%;
+}
+
+.text-content h2 {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-sm);
+}
+
+.text-content p {
+    font-size: var(--fluid-body);
+    line-height: 1.6;
+}
+
+.image {
+    width: 100%;
+    max-width: 420px;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+
+    /*change*/
+    height: auto;
+    object-fit: cover;
+}
+
+/* Animation Keyframes */
+@keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}
+
 @keyframes slideInBounce {
     0% { transform: translateX(100%); }
     55% { transform: translateX(-16px); }
@@ -162,115 +322,107 @@ nav li:first-child {
 .sidebar--open {
     visibility: visible;
     pointer-events: auto;
-    animation: slideInBounce 1.5s cubic-bezier(.22,.9,.29,1) forwards;
+    animation: slideInBounce 0.8s cubic-bezier(.22, .9, .29, 1) forwards;
 }
 
 .sidebar--closing {
     visibility: visible;
     pointer-events: none;
-    animation: rubberClose 1s cubic-bezier(.25,.1,.25,1) forwards;
+    animation: rubberClose 0.6s cubic-bezier(.25, .1, .25, 1) forwards;
 }
 
-/* Make sure links inside sidebar are keyboard-focusable and visible */
-.sidebar a:focus {
-    outline: 3px solid #fff;
-    outline-offset: 2px;
+
+/* ==========================================================================
+   4. BREAKPOINT 1: TABLET SCREENS (min-width: 768px)
+   ========================================================================== */
+@media screen and (min-width: 768px) {
+    /* Navigation Bar Changes */
+    .hideOnMobile {
+        display: flex;
+    }
+
+    .menu-button {
+        display: none;
+    }
+
+    nav ul {
+        justify-content: flex-end;
+    }
+
+    nav li:first-child {
+        margin-right: auto;
+    }
+
+    /* Hero Section */
+    .full-width-video {
+        height: 75vh;
+    }
+
+    /* Marquee Sizing */
+    .item {
+        font-size: var(--text-lg);
+        padding: 0.6rem 1.2rem;
+    }
+
+    /* About Section Grid/Flex Side-by-Side */
+    .page-container {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 3rem;
+
+        
+    }
+
+    .text-content {
+        flex: 1;
+    }
+
+    .image {
+        width: 45%;
+        max-width: 450px;
+    }
 }
 
-/* infinite moving banner */
-#container {
-    width: 100%;
-    height: 3rem;
-    font-family: Montserrat;
-    position: relative;
-    overflow: hidden;
-    white-space: nowrap;
-    background: var(--secondary-color);
-    color: var(--primary-color);
-}
-#container .scroll,
-#container .scroll-one {
-    background: var(--secondary-color);
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: fit-content;
-    white-space: nowrap;
-    animation: loop 30s linear infinite both;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
+
+/* ==========================================================================
+   5. BREAKPOINT 2: LAPTOP SCREENS (min-width: 1024px)
+   ========================================================================== */
+@media screen and (min-width: 1024px) {
+    /* Navigation Spacing */
+    nav a {
+        padding: 0 2rem;
+    }
+
+    /* Hero Height */
+    .full-width-video {
+        height: 85vh;
+    }
+
+    /* About Section Spacing */
+    .about-section {
+        padding-top: var(--space-3xl);
+        padding-bottom: var(--space-3xl);
+    }
+
+    .page-container {
+        gap: 4rem;
+    }
+
+    .image {
+        width: 40%;
+    }
 }
 
-#container .scroll#scroll-two {
-    transform: translateX(100%);
-    animation-delay: -15s;
-}
 
-#container .fade {
-    z-index: 2;
-}
-.fade {
-    width: 100%;
-    position: absolute;
-    background: linear-gradient(
-        90deg,
-        #000,
-        transparent 30%,
-        transparent 90%,
-        #000
-    );
-    inset: 0;
-    pointer-events: none;
-}
-@keyframes loop {
-    0% {transform: translateX(100%);}
-    100% {transform: translateX(-100%);}
-}
-.item {
-    display: flex;
-    align-items: center;
-    gap: 0 0.2rem;
-    color: var(--primary-color);
-    font-size: 1.3rem;
-    padding: 0.7rem 1rem;
-    margin: 0rem 1rem;
-    border-radius: 0.4rem;
-    white-space: nowrap;
-    box-shadow:
-    0 0.1rem 0.2rem #00000033,
-    0 0.1rem 0.5rem #0000004d,
-    0 0.2rem 01.5rem #00000066,
-}
+/* ==========================================================================
+   6. BREAKPOINT 3: LARGE DESKTOP SCREENS (min-width: 1440px)
+   ========================================================================== */
+@media screen and (min-width: 1440px) {
+    .full-width-video {
+        height: 90vh;
+    }
 
-/* Page main content picture and text animation (about section) */
-
-.about-section {
-    padding: var(--section-padding);
-    max-width: var(--max-content-width);
-    margin: 0 auto;
+    .about-section {
+        max-width: var(--max-content-width);
+    }
 }
-
-.main-heading {
-    font-size: var(--fluid-title);
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.page-container {
-  display: flex; /* Aligns the children horizontally */
-  align-items: center; /* Centers items vertically */
-  gap: 10%; /* Adds space between the text and image */
-}
-
-.text-content {
-  flex: 1; /* Takes up remaining available space */
-}
-
-.image {
-    width: 70%;
-    max-width: 400px;
-    height: auto;
-}
-
