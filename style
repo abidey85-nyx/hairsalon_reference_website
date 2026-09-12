@@ -322,3 +322,775 @@ nav li:first-child {
     height: auto;
 }
 
+/* ==========================================================================
+   SERVICES SECTION & CAROUSEL
+   ========================================================================== */
+.services-section {
+    padding: var(--section-padding) 1rem;
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+}
+
+.services-title {
+    font-size: var(--text-3xl);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.carousel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Horizontal Scroll Container */
+.services-carousel {
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    padding: var(--space-sm) 0;
+    /* Hide scrollbars across browsers */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.services-carousel::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+/* Individual Card Styling */
+.service-card {
+    /* MOBILE DEFAULT: Exactly 2 cards visible */
+    flex: 0 0 calc((100% - var(--space-md)) / 2);
+    aspect-ratio: 3 / 4; /* Maintains uniform card dimensions */
+    position: relative;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    scroll-snap-align: start;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    background-color: var(--secondary-color);
+}
+
+/* Base Image Zoom Effect */
+.service-card .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+/* Hover: Image Zoom */
+.service-card:hover .card-img {
+    transform: scale(1.12);
+}
+
+/* Overlays (Name on top, Price on bottom) */
+.card-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: var(--space-md);
+    z-index: 2;
+    transition: transform var(--transition-base), opacity var(--transition-base);
+    background: linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 100%);
+    color: #ffffff;
+}
+
+.top-overlay {
+    top: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+}
+
+.top-overlay h3 {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.bottom-overlay {
+    bottom: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+}
+
+.bottom-overlay .price {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--primary-color);
+    background-color: var(--color-accent);
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--border-radius-sm);
+    display: inline-block;
+}
+
+/* Hover: Smooth Text Slide Out */
+.service-card:hover .top-overlay {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.service-card:hover .bottom-overlay {
+    transform: translateY(100%);
+    opacity: 0;
+}
+
+/* Carousel Control Buttons (Arrows) */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-lg);
+    transition: background-color var(--transition-fast), opacity var(--transition-fast);
+    opacity: 0.85;
+}
+
+.carousel-btn:hover {
+    opacity: 1;
+    background-color: var(--color-accent);
+}
+
+.carousel-btn:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+}
+
+.prev-btn { left: -12px; }
+.next-btn { right: -12px; }
+
+
+
+
+
+
+/* ==========================================================================
+   1. VARIABLES & DESIGN TOKENS
+   ========================================================================== */
+:root {
+    /* Colors */
+    --color-bg: #ffffff;
+    --color-text: #000000;
+    --color-accent: #005c14;
+    --color-muted: #7f0000;
+
+    /* Aliases */
+    --primary-color: var(--color-bg);
+    --secondary-color: var(--color-text);
+
+    /* Typography */
+    --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-heading: 'Georgia', 'Times New Roman', serif;
+    --font-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
+    --font-family: 'Bahnschrift', sans-serif;
+
+    /* Font Sizes (Modular Scale) */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 2rem;
+    --text-4xl: 2.5rem;
+
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    --space-3xl: 4rem;
+
+    /* Fluid Typography & Spacing */
+    --fluid-title: clamp(2rem, 4vw + 1rem, 4.5rem);
+    --fluid-body: clamp(1rem, 0.5vw + 0.8rem, 1.25rem);
+    --section-padding: clamp(2rem, 5vh, 6rem);
+
+    /* Layout & Layers */
+    --max-content-width: 1200px;
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 16px;
+    --z-sidebar: 1000;
+
+    /* Shadows & Transitions */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
+    --transition-fast: 150ms ease;
+    --transition-base: 300ms ease;
+
+    --transition-fast: 150ms ease;
+    --transition-base: 300ms ease;
+    --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   2. RESET & BASE STYLES
+   ========================================================================== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    font-family: var(--font-family);
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ==========================================================================
+   3. BASE / MOBILE STYLES (< 768px)
+   ========================================================================== */
+
+/* Accessibility Skip Link */
+.skip-link {
+    position: absolute;
+    left: 0.75rem;
+    top: 0.5rem;
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 0.5rem 0.75rem;
+    z-index: calc(var(--z-sidebar) + 10);
+    transform: translateY(-120%);
+    transition: transform var(--transition-fast);
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+/* Header & Navigation */
+header {
+    position: relative;
+    width: 100%;
+}
+
+nav {
+    background-color: var(--secondary-color);
+    box-shadow: var(--shadow-sm);
+    width: 100%;
+}
+
+nav ul {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav li {
+    height: 60px;
+}
+
+nav a {
+    height: 100%;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: var(--text-lg);
+    transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+nav a:hover,
+nav a:focus {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+/* Mobile defaults for navigation items */
+.hideOnMobile {
+    display: none; /* Hidden on mobile by default */
+}
+
+.menu-button {
+    display: flex;
+}
+
+.width-display {
+    font-size: var(--text-xs);
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    color: var(--primary-color);
+    z-index: 10;
+}
+
+/* Sidebar Drawer */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100%;
+    max-width: 300px;
+    z-index: var(--z-sidebar);
+    background-color: var(--secondary-color);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(100%);
+}
+
+.sidebar li {
+    width: 100%;
+    height: auto;
+    padding-top: var(--space-md);
+}
+
+.sidebar a {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: var(--text-xl);
+}
+
+.sidebar a:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: -3px;
+}
+
+/* Hero Section */
+.full-width-video {
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+    object-position: center;
+    background-color: #000;
+}
+
+/* Infinite Marquee Banner */
+#container {
+    width: 100%;
+    height: 3.5rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+}
+
+.scroll {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    animation: marquee 25s linear infinite;
+    shrink: 0;
+}
+
+.fade {
+    width: 100%;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        #000 0%,
+        transparent 15%,
+        transparent 85%,
+        #000 100%
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+.item {
+    display: inline-flex;
+    align-items: center;
+    color: var(--primary-color);
+    font-size: var(--text-base);
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    border-radius: var(--border-radius-sm);
+    white-space: nowrap;
+    box-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.3);
+}
+
+/* About Section (Stacked on Mobile) */
+.about-section {
+    padding: var(--section-padding) 1.5rem;
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+}
+
+.main-heading {
+    font-size: var(--fluid-title);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xl);
+}
+
+.text-content {
+    width: 100%;
+}
+
+.text-content h2 {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-sm);
+}
+
+.text-content p {
+    font-size: var(--fluid-body);
+    line-height: 1.6;
+}
+
+.image {
+    width: 100%;
+    max-width: 300px;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+
+    /*change*/
+    height: auto;
+    object-fit: cover;
+}
+
+/* Animation Keyframes */
+@keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes slideInBounce {
+    0% { transform: translateX(100%); }
+    55% { transform: translateX(-16px); }
+    72% { transform: translateX(8px); }
+    86% { transform: translateX(-4px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes rubberClose {
+    0% { transform: translateX(0) scaleX(1); }
+    20% { transform: translateX(-12px) scaleX(1.03); }
+    100% { transform: translateX(100%) scaleX(1); }
+}
+
+.sidebar--open {
+    visibility: visible;
+    pointer-events: auto;
+    animation: slideInBounce 0.8s cubic-bezier(.22, .9, .29, 1) forwards;
+}
+
+.sidebar--closing {
+    visibility: visible;
+    pointer-events: none;
+    animation: rubberClose 0.6s cubic-bezier(.25, .1, .25, 1) forwards;
+}
+
+
+/* ==========================================================================
+   4. BREAKPOINT 1: TABLET SCREENS (min-width: 768px)
+   ========================================================================== */
+@media screen and (min-width: 768px) {
+    /* Navigation Bar Changes */
+    .hideOnMobile {
+        display: flex;
+    }
+
+    .menu-button {
+        display: none;
+    }
+
+    nav ul {
+        justify-content: flex-end;
+    }
+
+    nav li:first-child {
+        margin-right: auto;
+    }
+
+    /* Hero Section */
+    .full-width-video {
+        height: 75vh;
+    }
+
+    /* Marquee Sizing */
+    .item {
+        font-size: var(--text-lg);
+        padding: 0.6rem 1.2rem;
+    }
+
+    /* About Section Grid/Flex Side-by-Side */
+    .page-container {
+        flex-direction: row;
+        /*align-items: flex-start;*/
+        gap: 3rem;
+
+        /*change*/
+        justify-content: space-between;
+        align-items: center;
+        gap: clamp(2rem, 4vw, 3.5rem); /*prevents awkward spacing*/
+
+    }
+
+    .text-content {
+        /*flex: 1;*/
+
+        /*change*/
+        flex: 1 1 55%; /*takes up ~55% of flexible space*/
+        min-width: 0; /*prevents overflow issues with long text*/
+    }
+
+    .image {
+        /*width: 45%;*/
+        max-width: 300px;
+
+        /*change*/
+        flex: 0 0 45%; /*stays at ~45% of space*/
+    }
+}
+
+
+/* ==========================================================================
+   5. BREAKPOINT 2: LAPTOP SCREENS (min-width: 1024px)
+   ========================================================================== */
+@media screen and (min-width: 1024px) {
+    /* Navigation Spacing */
+    nav a {
+        padding: 0 2rem;
+    }
+
+    /* Hero Height */
+    .full-width-video {
+        height: 85vh;
+    }
+
+    /* About Section Spacing */
+    .about-section {
+        padding-top: var(--space-3xl);
+        padding-bottom: var(--space-3xl);
+    }
+
+    .page-container {
+        /*gap: 4rem;*/
+
+        /*change*/
+        gap: clamp(3.5rem, 6vw, 5rem); /*prevents awkward spacing*/
+    }
+
+    /*add*/
+    .text-content {
+        flex: 1 1 50%; /*takes up ~60% of flexible space*/
+    }
+
+    .image {
+        /*width: 40%;*/
+
+        /*change*/
+        flex: 0 0 42%; /*stays at ~40% of space*/
+        max-width: 400px;
+    }
+}
+
+
+/* ==========================================================================
+   6. BREAKPOINT 3: LARGE DESKTOP SCREENS (min-width: 1440px)
+   ========================================================================== */
+@media screen and (min-width: 1440px) {
+    .full-width-video {
+        height: 90vh;
+    }
+
+    .about-section {
+        max-width: var(--max-content-width);
+    }
+
+    .service-card {
+        /* LAPTOP/DESKTOP: Exactly 3 cards visible */
+        flex: 0 0 calc((100% - (var(--space-md) * 2)) / 3);
+    }
+
+    .top-overlay h3 {
+        font-size: var(--text-xl);
+    }
+
+    .bottom-overlay .price {
+        font-size: var(--text-lg);
+    }
+
+    .prev-btn { left: -20px; }
+    .next-btn { right: -20px; }
+}
+
+/* ==========================================================================
+   SERVICES SECTION & CAROUSEL
+   ========================================================================== */
+.services-section {
+    padding: var(--section-padding) 1rem;
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+}
+
+.services-title {
+    font-size: var(--text-3xl);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.carousel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Horizontal Scroll Container */
+.services-carousel {
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    padding: var(--space-sm) 0;
+    /* Hide scrollbars across browsers */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.services-carousel::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+/* Individual Card Styling */
+.service-card {
+    /* MOBILE DEFAULT: Exactly 2 cards visible */
+    flex: 0 0 calc((100% - var(--space-md)) / 2);
+    aspect-ratio: 3 / 4; /* Maintains uniform card dimensions */
+    position: relative;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    scroll-snap-align: start;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    background-color: var(--secondary-color);
+}
+
+/* Base Image Zoom Effect */
+.service-card .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+/* Hover: Image Zoom */
+.service-card:hover .card-img {
+    transform: scale(1.12);
+}
+
+/* Overlays (Name on top, Price on bottom) */
+.card-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: var(--space-md);
+    z-index: 2;
+    transition: transform var(--transition-base), opacity var(--transition-base);
+    background: linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 100%);
+    color: #ffffff;
+}
+
+.top-overlay {
+    top: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+}
+
+.top-overlay h3 {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.bottom-overlay {
+    bottom: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+}
+
+.bottom-overlay .price {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--primary-color);
+    background-color: var(--color-accent);
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--border-radius-sm);
+    display: inline-block;
+}
+
+/* Hover: Smooth Text Slide Out */
+.service-card:hover .top-overlay {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.service-card:hover .bottom-overlay {
+    transform: translateY(100%);
+    opacity: 0;
+}
+
+/* Carousel Control Buttons (Arrows) */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-lg);
+    transition: background-color var(--transition-fast), opacity var(--transition-fast);
+    opacity: 0.85;
+}
+
+.carousel-btn:hover {
+    opacity: 1;
+    background-color: var(--color-accent);
+}
+
+.carousel-btn:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+}
+
+.prev-btn { left: -12px; }
+.next-btn { right: -12px; }

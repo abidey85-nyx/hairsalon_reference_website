@@ -107,3 +107,4 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebar.setAttribute('aria-hidden', 'true');
   }
 });
+
