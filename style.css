@@ -448,6 +448,95 @@ nav a:focus {
 }
 
 /* ==========================================================================
+   SERVICES SECTION (MINIMALIST SHARP GRID)
+   ========================================================================== */
+
+/* Main Section Wrapper & Separator Lines */
+.services-section {
+    width: 100%;
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+    padding: var(--section-padding) 1.5rem;
+    background-color: var(--color-bg);
+    
+    /* Top and Bottom Section Divider Lines */
+    border-top: 2px solid var(--color-text);
+    border-bottom: 2px solid var(--color-text);
+}
+
+/* Section Title */
+.services-title {
+    font-size: var(--text-3xl);
+    text-align: center;
+    color: var(--color-text);
+    margin-bottom: var(--space-2xl);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Services Grid: Default 2 Columns (Mobile & Tablet) */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    width: 100%;
+
+    /*change*/
+    grid-auto-rows: 1fr; /* Ensures all boxes have equal height */
+}
+
+/* Sharp-Edged Box Container */
+.service-box {
+    background-color: var(--color-bg);
+    border: 2px solid var(--color-accent);
+    border-radius: 0; /* Strictly sharp edges, no rounding */
+    padding: var(--space-lg) var(--space-md);
+
+    /* Flexbox for Centered Content */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+
+    /*change*/
+    height: 100%; /* Ensures the box fills the grid cell */
+}
+
+/* Subtle Interactive Elevation */
+.service-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 92, 20, 0.15);
+}
+
+/* Box Heading */
+.service-box h3 {
+    font-size: var(--text-lg);
+    color: var(--color-text);
+    margin-bottom: var(--space-sm);
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Box Description (Strictly uniform text block) */
+.service-box p {
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.5;
+    text-align: center;
+    margin: 0;
+    max-width: 32ch; /* Maintains 2-3 clean lines per card */
+    opacity: 0.9;
+
+    /*line clamp for uniformity*/
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limits to 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ==========================================================================
    7. HAIRSTYLE GALLERY SECTION (2-COLUMN GRID PICTURE BOOK)
    ========================================================================== */
 .gallery-section {
