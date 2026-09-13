@@ -652,3 +652,57 @@ nav a:focus {
     transform: translateY(100%);
     opacity: 0;
 }
+
+/* ==========================================================================
+   BOOKING SECTION
+   ========================================================================== */
+.booking-section {
+    /* Match gallery section layout */
+    padding: var(--section-padding) 1rem;
+    max-width: var(--max-content-width);
+    margin: var(--space-2xl) auto;
+
+    /* Accent background "behind the card" */
+    background-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+
+    /* Center heading + paragraph */
+    text-align: center;
+}
+
+/* Heading — matches .gallery-title exactly */
+.booking-title {
+    font-size: var(--text-3xl);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    color: var(--color-bg);           /* Ensures readable black on grey */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Paragraph — larger letter size + breathing room */
+.booking-description {
+    font-size: var(--fluid-body);       /* Fluid 1rem → 1.25rem */
+    line-height: 1.6;
+    color: var(--color-bg);
+    max-width: 60ch;                    /* Keeps line length comfortable */
+    margin: 0 auto var(--space-xl);     /* Centers paragraph, adds space below */
+    opacity: 0.9;
+}
+
+/* The Cal.com calendar container — acts as the white "card" */
+#my-cal-inline-mens-haircuts-session {
+    width: 100%;
+    min-height: 600px;
+    background-color: var(--color-bg);  /* White card on grey background */
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+/* Reduce height on very small phones so it's not too tall */
+@media screen and (max-width: 479px) {
+    #my-cal-inline-mens-haircuts-session {
+        min-height: 500px;
+    }
+}
